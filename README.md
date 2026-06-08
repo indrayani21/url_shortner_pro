@@ -34,3 +34,21 @@ git clone <repo>
 npm install
 docker-compose up -d
 npm run dev
+
+## Cloud Architecture
+
+This application is designed for AWS deployment with:
+
+- **Container Registry**: Docker images pushed to ECR
+- **Orchestration**: ECS Fargate with auto-scaling (2-10 instances)
+- **Load Balancing**: Application Load Balancer for traffic distribution  
+- **Database**: MongoDB Atlas (AWS eu-north-1)
+- **Cache**: Redis Cloud (AWS eu-north-1)
+- **Monitoring**: CloudWatch logs and metrics
+- **CI/CD**: GitHub Actions → ECR → ECS
+
+### Deployment Commands (Ready to use):
+\`\`\`bash
+aws ecr get-login-password | docker login
+aws ecs create-service --cluster url-shortener --task-definition url-shortener
+\`\`\`
